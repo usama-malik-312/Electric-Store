@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<br />
+<div align="center">
+    <img src="public/favicon-light.svg" style="vertical-align: middle;" width="48" height="48"/>
+    <br />
+    <br />
+    <p>
+        Build a Modern Dashboard UI Design using React JS, TailwindCSS.
+</p>
+<a href="https://youtu.be/uHxZMmvQXHQ">Watch Tutorial</a>
 
-## Getting Started
+</div>
 
-First, run the development server:
+<br />
+
+![Dashboard UI Design](./public/Dashboard%20UI%20Design.png)
+
+## 🗒️ Table of Contents
+
+1. [💬 Introduction](#introduction)
+2. [🛠️ Tools](#tools)
+3. [✨ Features](#features)
+4. [🚀 Getting Started](#getting-started)
+5. [💻 Code Snippets](#code-snippets)
+6. [☕ Support Me](#support-me)
+
+## <a name="introduction">💬 Introduction</a>
+
+Welcome to the Dashboard UI Design repository! This project is a comprehensive guide to building a clean, user-friendly, and fully responsive dashboard interface. Whether you're new to UI/UX design or an experienced developer looking to enhance your skills, this repository provides essential resources to help you create an efficient and visually organized dashboard experience. Explore best practices for crafting intuitive layouts, managing data visualization, and ensuring seamless user interaction.
+
+## <a name="tools">🛠️ Tools</a>
+
+-   [React JS](https://react.dev)
+-   [TailwindCSS](https://tailwindcss.com/)
+-   [Lucide Icons](https://lucide.dev/)
+-   [React Router](https://reactrouter.com/en/main)
+-   [Recharts](https://recharts.org/en-US/)
+
+## <a name="features">✨ Features</a>
+
+-   **Responsive Design:** Ensures your portfolio looks great on desktops, tablets, and mobile devices.
+-   **Clean and Modern Layout:** A professional design that highlights your projects, skills, and experience.
+
+## <a name="getting-started">🚀 Getting Started</a>
+
+To get started follow these steps:
+
+#### Cloning the Repository
+
+Using CLI
+
+```bash
+git clone https://github.com/xdcode2/dashboard-ui-design.git
+```
+
+**\*\*_Ensure you have installed [Git](https://git-scm.com) on your machine._**
+
+or using GitHub:
+
+-   Go to the project [repository](https://github.com/xdcode2/dashboard-ui-design) on my GitHub page
+-   Click on the green button on the top 👆
+-   Click Download ZIP
+
+#### Installation
+
+Install the project dependencies using npm:
+
+```bash
+npm install
+```
+
+**\*\*_Ensure you have installed [NodeJS](https://nodejs.org/en) on your machine._**
+
+#### Running the Project
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**\*\*_This project uses [Vite](https://vitejs.dev)._**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## <a name="support-me">☕ Support Me</a>
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+[![ko-fi](https://img.shields.io/static/v1?message=Support%20me%20on%20ko-fi&logo=kofi&label=&color=ff5e5b&logoColor=white&labelColor=&style=for-the-badge)](https://ko-fi.com/J3J1NMYT7)
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[![youtube](https://img.shields.io/static/v1?message=Subscribe&logo=youtube&label=&color=FF0000&logoColor=white&labelColor=&style=for-the-badge)](https://www.youtube.com/@_xdcode_ "XD Code")
