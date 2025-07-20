@@ -13,6 +13,9 @@ import Products from "@/routes/products/page";
 import NewProduct from "@/routes/new-product/page";
 import Inventory from "@/routes/inventory/page";
 import Settings from "@/routes/settings/page";
+import Users from "@/routes/users/page";
+import Suppliers from "@/routes/suppliers/page";
+import Brands from "@/routes/brands/page";
 import LoginPage from "@/routes/login";
 import NotFound from "@/routes/not-found";
 
@@ -20,15 +23,11 @@ function App() {
     const router = createBrowserRouter([
         {
             path: "/",
-            element: <Navigate to="/login" replace />, 
+            element: <Navigate to="/login" replace />,
         },
         {
             path: "/login",
             element: <LoginPage />,
-        },
-        {
-            path: "/reports",
-            element: <Reports />,
         },
         {
             path: "/dashboard",
@@ -38,41 +37,119 @@ function App() {
                     index: true,
                     element: <DashboardPage />,
                 },
-                { index: true,
+                {
                     path: "analytics",
                     element: <Analytics />,
                 },
+            ],
+        },
+        {
+            path: "/reports",
+            element: <Layout />,
+            children: [
                 {
-                    path: "reports",
+                    index: true,
                     element: <Reports />,
                 },
+            ],
+        },
+        {
+            path: "/stores",
+            element: <Layout />,
+            children: [
                 {
-                    path: "customers",
+                    index: true,
+                    element: <h1 className="title">Stores</h1>,
+                },
+            ],
+        },
+        {
+            path: "/analytics",
+            element: <Layout />,
+            children: [
+                {
+                    index: true,
+                    element: <Analytics />,
+                },
+            ],
+        },
+        {
+            path: "/customers",
+            element: <Layout />,
+            children: [
+                {
+                    index: true,
                     element: <Customers />,
                 },
+            ],
+        },
+        {
+            path: "/new-customer",
+            element: <Layout />,
+            children: [
                 {
-                    path: "new-customer",
+                    index: true,
                     element: <NewCustomer />,
                 },
+            ],
+        },
+        {
+            path: "/products",
+            element: <Layout />,
+            children: [
                 {
-                    path: "verified-customers",
-                    element: <VerifiedCustomers />,
-                },
-                {
-                    path: "products",
+                    index: true,
                     element: <Products />,
                 },
+            ],
+        },
+        {
+            path: "/inventory",
+            element: <Layout />,
+            children: [
                 {
-                    path: "new-product",
-                    element: <NewProduct />,
-                },
-                {
-                    path: "inventory",
+                    index: true,
                     element: <Inventory />,
                 },
+            ],
+        },
+        {
+            path: "/settings",
+            element: <Layout />,
+            children: [
                 {
-                    path: "settings",
+                    index: true,
                     element: <Settings />,
+                },
+            ],
+        },
+        {
+            path: "/users",
+            element: <Layout />,
+            children: [
+                {
+                    index: true,
+                    element: <Users />,
+                },
+            ],
+        },
+        {
+            path: "/suppliers",
+            element: <Layout />,
+            children: [
+                {
+                    index: true,
+                    element: <Suppliers />,
+                },
+            ],
+        },
+        {
+            path: "/brands",
+            element: <Layout />,
+            children: [
+                {
+                    index: true,
+                    element: <Brands />,
                 },
             ],
         },

@@ -1,5 +1,5 @@
-import { ChartColumn, Home, NotepadText, Package, PackagePlus, Settings, ShoppingBag, UserCheck, UserPlus, Users } from "lucide-react";
-
+import { ChartColumn, Home, Warehouse, NotepadText, Package, PackagePlus, Settings, ShoppingBag, UserCheck, UserPlus, Users, Building2, Truck, Tag } from "lucide-react";
+{/* <Warehouse /> */ }
 import ProfileImage from "@/assets/profile-image.jpg";
 import ProductImage from "@/assets/product-image.jpg";
 
@@ -10,7 +10,7 @@ export const navbarLinks = [
             {
                 label: "Dashboard",
                 icon: Home,
-                path: "/",
+                path: "/dashboard",
             },
             {
                 label: "Analytics",
@@ -58,9 +58,34 @@ export const navbarLinks = [
                 path: "/new-product",
             },
             {
+                label: "Stores",
+                icon: Warehouse,
+                path: "/stores",
+            },
+            {
                 label: "Inventory",
                 icon: ShoppingBag,
                 path: "/inventory",
+            },
+        ],
+    },
+    {
+        title: "Management",
+        links: [
+            {
+                label: "Users",
+                icon: Building2,
+                path: "/users",
+            },
+            {
+                label: "Suppliers",
+                icon: Truck,
+                path: "/suppliers",
+            },
+            {
+                label: "Brands",
+                icon: Tag,
+                path: "/brands",
             },
         ],
     },
