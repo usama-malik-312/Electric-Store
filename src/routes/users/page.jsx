@@ -1,55 +1,75 @@
 import React, { useEffect, useState } from "react";
-import { apiService } from '@/services/api';
+import { Table, Card } from "antd";
 import api from '@/utils/api';
 
-
 export default function Users() {
-
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [users, setUsers] = useState([]);
+    const [pagination, setPagination] = useState({ current: 1, pageSize: 3, total: 0 });
+    const [filter, setFilter] = useState({ page: 1, limit: 3 });
 
-    // Get all users
-    const getUsers = async () => {
-        console.log("getUsers function called");
+    // Fetch users with filters (pagination, etc.)
+    const getUsers = async (filterObj = filter) => {
         setLoading(true);
         setError(null);
-
         try {
-            console.log("Making API call to get users...");
-            // Call API directly
-            // const response = await api.get('/users');
-            const response = await api.get('/users');
-            console.log("users======", response.data);
-            setUsers(response.data);
+            const response = await api.get('/users', { params: filterObj });
+            // Adjust if your backend returns a different structure
+            setUsers(response.data?.data || []);
+            setPagination({
+                current: filterObj.page,
+                pageSize: filterObj.limit,
+                total: response.data?.total || 0,
+            });
         } catch (error) {
-            console.error("Error fetching users:", error);
-            console.error("Error details:", error.response?.data);
             setError(error.response?.data?.message || error.message);
         } finally {
             setLoading(false);
         }
     };
 
-    // Call getUsers when component mounts
+    // Handle table pagination/filter change
+    const handleTableChange = (pagination) => {
+        const newFilter = {
+            ...filter,
+            page: pagination.current,
+            limit: pagination.pageSize,
+        };
+        setFilter(newFilter);
+        getUsers(newFilter);
+    };
+
     useEffect(() => {
-        console.log("Users component mounted, calling getUsers...");
-        getUsers();
+        getUsers(filter);
+        // eslint-disable-next-line
     }, []);
 
-    console.log("Users component rendering, loading:", loading, "error:", error);
+    const columns = [
+        { title: 'ID', dataIndex: 'id', key: 'id' },
+        { title: 'Full Name', dataIndex: 'full_name', key: 'full_name' },
+        { title: 'Email', dataIndex: 'email', key: 'email' },
+        { title: 'Role', dataIndex: 'role', key: 'role' },
+        // Add more columns as needed
+    ];
 
     return (
-        <div>
+        <Card>
             <h1 className="title">Users</h1>
-            {loading && <p>Loading users...</p>}
-            {error && <p>Error: {error}</p>}
-            {users?.length > 0 && (
-                <div>
-                    <h2>Users List:</h2>
-                    <pre>{JSON.stringify(users, null, 2)}</pre>
-                </div>
-            )}
-        </div>
+            <Table
+                columns={columns}
+                dataSource={users}
+                rowKey="id"
+                loading={loading}
+                pagination={{
+                    current: pagination.current,
+                    pageSize: pagination.pageSize,
+                    total: pagination.total,
+                    showSizeChanger: true,
+                }}
+                onChange={handleTableChange}
+            />
+            {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+        </Card>
     );
 } 
