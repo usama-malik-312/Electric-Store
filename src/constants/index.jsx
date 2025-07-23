@@ -1,5 +1,22 @@
-import { ChartColumn, Home, Warehouse, NotepadText, Package, PackagePlus, Settings, ShoppingBag, UserCheck, UserPlus, Users, Building2, Truck, Tag } from "lucide-react";
-{/* <Warehouse /> */ }
+import {
+    ChartColumn,
+    Home,
+    Warehouse,
+    NotepadText,
+    Package,
+    PackagePlus,
+    Settings,
+    ShoppingBag,
+    UserCheck,
+    UserPlus,
+    Users,
+    Building2,
+    Truck,
+    Tag,
+} from "lucide-react";
+{
+    /* <Warehouse /> */
+}
 import ProfileImage from "@/assets/profile-image.jpg";
 import ProductImage from "@/assets/product-image.jpg";
 

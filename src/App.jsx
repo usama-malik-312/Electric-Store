@@ -6,11 +6,10 @@ import Layout from "@/routes/layout";
 import DashboardPage from "@/routes/dashboard/page";
 import Analytics from "@/routes/analytics/page";
 import Reports from "@/routes/reports/page";
+import Stores from "@/routes/stores/page";
 import Customers from "@/routes/customers/page";
 import NewCustomer from "@/routes/new-customer/page";
-import VerifiedCustomers from "@/routes/verified-customers/page";
 import Products from "@/routes/products/page";
-import NewProduct from "@/routes/new-product/page";
 import Inventory from "@/routes/inventory/page";
 import Settings from "@/routes/settings/page";
 import Users from "@/routes/users/page";
@@ -18,12 +17,19 @@ import Suppliers from "@/routes/suppliers/page";
 import Brands from "@/routes/brands/page";
 import LoginPage from "@/routes/login";
 import NotFound from "@/routes/not-found";
+import NewUser from "@/routes/users/new-user";
+import NewStore from "@/routes/stores/new-store";
 
 function App() {
     const router = createBrowserRouter([
         {
             path: "/",
-            element: <Navigate to="/login" replace />,
+            element: (
+                <Navigate
+                    to="/login"
+                    replace
+                />
+            ),
         },
         {
             path: "/login",
@@ -54,12 +60,12 @@ function App() {
             ],
         },
         {
-            path: "/stores",
+            path: "/Stores",
             element: <Layout />,
             children: [
                 {
                     index: true,
-                    element: <h1 className="title">Stores</h1>,
+                    element: <Stores />,
                 },
             ],
         },
@@ -150,6 +156,26 @@ function App() {
                 {
                     index: true,
                     element: <Brands />,
+                },
+            ],
+        },
+        {
+            path: "/new-user",
+            element: <Layout />,
+            children: [
+                {
+                    index: true,
+                    element: <NewUser />,
+                },
+            ],
+        },
+        {
+            path: "/new-store",
+            element: <Layout />,
+            children: [
+                {
+                    index: true,
+                    element: <NewStore />,
                 },
             ],
         },

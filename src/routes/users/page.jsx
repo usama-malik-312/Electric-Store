@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Table, Card } from "antd";
-import api from '@/utils/api';
+import { useEffect, useState } from "react";
+import { Table, Card, Button } from "antd";
+import api from "@/utils/api";
+import { useNavigate } from "react-router-dom";
 
 export default function Users() {
     const [loading, setLoading] = useState(false);
@@ -8,13 +9,14 @@ export default function Users() {
     const [users, setUsers] = useState([]);
     const [pagination, setPagination] = useState({ current: 1, pageSize: 3, total: 0 });
     const [filter, setFilter] = useState({ page: 1, limit: 3 });
+    const navigate = useNavigate();
 
     // Fetch users with filters (pagination, etc.)
     const getUsers = async (filterObj = filter) => {
         setLoading(true);
         setError(null);
         try {
-            const response = await api.get('/users', { params: filterObj });
+            const response = await api.get("/users", { params: filterObj });
             // Adjust if your backend returns a different structure
             setUsers(response.data?.data || []);
             setPagination({
@@ -46,16 +48,24 @@ export default function Users() {
     }, []);
 
     const columns = [
-        { title: 'ID', dataIndex: 'id', key: 'id' },
-        { title: 'Full Name', dataIndex: 'full_name', key: 'full_name' },
-        { title: 'Email', dataIndex: 'email', key: 'email' },
-        { title: 'Role', dataIndex: 'role', key: 'role' },
+        { title: "ID", dataIndex: "id", key: "id" },
+        { title: "Full Name", dataIndex: "full_name", key: "full_name" },
+        { title: "Email", dataIndex: "email", key: "email" },
+        { title: "Role", dataIndex: "role", key: "role" },
         // Add more columns as needed
     ];
 
     return (
         <Card>
             <h1 className="title">Users</h1>
+            <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 16 }}>
+                <Button
+                    type="primary"
+                    onClick={() => navigate("/new-user")}
+                >
+                    Add New User
+                </Button>
+            </div>
             <Table
                 columns={columns}
                 dataSource={users}
@@ -69,7 +79,7 @@ export default function Users() {
                 }}
                 onChange={handleTableChange}
             />
-            {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+            {error && <p style={{ color: "red" }}>Error: {error}</p>}
         </Card>
     );
-} 
+}
