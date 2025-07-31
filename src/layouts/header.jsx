@@ -5,6 +5,7 @@ import { Bell, ChevronsLeft, Moon, Search, Sun } from "lucide-react";
 import profileImg from "@/assets/profile-image.jpg";
 
 import PropTypes from "prop-types";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export const Header = ({ collapsed, setCollapsed }) => {
     const { theme, setTheme } = useTheme();
@@ -46,6 +47,7 @@ export const Header = ({ collapsed, setCollapsed }) => {
                         className="hidden dark:block"
                     />
                 </button>
+                <LanguageSwitcher />
                 <button className="btn-ghost size-10">
                     <Bell size={20} />
                 </button>

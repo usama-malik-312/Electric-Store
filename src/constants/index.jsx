@@ -22,6 +22,7 @@ import {
 import ProfileImage from "@/assets/profile-image.jpg";
 import ProductImage from "@/assets/product-image.jpg";
 
+// This will be updated to use i18n in the sidebar component
 export const navbarLinks = [
     {
         title: "Dashboard",
@@ -51,16 +52,6 @@ export const navbarLinks = [
                 icon: Users,
                 path: "/customers",
             },
-            // {
-            //     label: "New customer",
-            //     icon: UserPlus,
-            //     path: "/new-customer",
-            // },
-            // {
-            //     label: "Verified customers",
-            //     icon: UserCheck,
-            //     path: "/verified-customers",
-            // },
         ],
     },
     {
@@ -81,21 +72,11 @@ export const navbarLinks = [
                 icon: FolderOpen,
                 path: "/item-groups",
             },
-            // {
-            //     label: "New product",
-            //     icon: PackagePlus,
-            //     path: "/new-product",
-            // },
             {
                 label: "Stores",
                 icon: Warehouse,
                 path: "/stores",
             },
-            // {
-            //     label: "Inventory",
-            //     icon: ShoppingBag,
-            //     path: "/inventory",
-            // },
         ],
     },
     {

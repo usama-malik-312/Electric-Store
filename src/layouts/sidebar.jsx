@@ -1,5 +1,6 @@
 import { forwardRef } from "react";
 import { NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { navbarLinks } from "@/constants";
 
@@ -11,6 +12,28 @@ import { cn } from "@/utils/cn";
 import PropTypes from "prop-types";
 
 export const Sidebar = forwardRef(({ collapsed }, ref) => {
+    const { t } = useTranslation();
+
+    // Function to get translated label
+    const getTranslatedLabel = (label) => {
+        const labelMap = {
+            'Dashboard': t('nav.dashboard'),
+            'Analytics': t('nav.analytics'),
+            'Reports': t('nav.reports'),
+            'Customers': t('nav.customers'),
+            'Products': t('nav.products'),
+            'Items': t('nav.items'),
+            'Item Groups': t('nav.itemGroups'),
+            'Stores': t('nav.stores'),
+            'Users': t('nav.users'),
+            'Suppliers': t('nav.suppliers'),
+            'Brands': t('nav.brands'),
+            'Settings': t('nav.settings'),
+            'Management': t('nav.management'),
+        };
+        return labelMap[label] || label;
+    };
+
     return (
         <aside
             ref={ref}
@@ -39,7 +62,9 @@ export const Sidebar = forwardRef(({ collapsed }, ref) => {
                         key={navbarLink.title}
                         className={cn("sidebar-group", collapsed && "md:items-center")}
                     >
-                        <p className={cn("sidebar-group-title", collapsed && "md:w-[45px]")}>{navbarLink.title}</p>
+                        <p className={cn("sidebar-group-title", collapsed && "md:w-[45px]")}>
+                            {getTranslatedLabel(navbarLink.title)}
+                        </p>
                         {navbarLink.links.map((link) => (
                             <NavLink
                                 key={link.label}
@@ -50,7 +75,7 @@ export const Sidebar = forwardRef(({ collapsed }, ref) => {
                                     size={22}
                                     className="flex-shrink-0"
                                 />
-                                {!collapsed && <p className="whitespace-nowrap">{link.label}</p>}
+                                {!collapsed && <p className="whitespace-nowrap">{getTranslatedLabel(link.label)}</p>}
                             </NavLink>
                         ))}
                     </nav>

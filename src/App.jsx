@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 
 import { ThemeProvider } from "@/contexts/theme-context";
+import "@/i18n"; // Import i18n configuration
 
 import Layout from "@/routes/layout";
 import DashboardPage from "@/routes/dashboard/page";
