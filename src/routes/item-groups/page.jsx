@@ -6,21 +6,21 @@ import api from '@/utils/api';
 
 const { Search } = Input;
 
-export default function Suppliers() {
+export default function ItemGroups() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [suppliers, setSuppliers] = useState([]);
+    const [itemGroups, setItemGroups] = useState([]);
     const [pagination, setPagination] = useState({ current: 1, pageSize: 10, total: 0 });
     const [filter, setFilter] = useState({ page: 1, limit: 10, search: '' });
 
-    // Fetch suppliers with filters
-    const getSuppliers = async (filterObj = filter) => {
+    // Fetch item groups with filters
+    const getItemGroups = async (filterObj = filter) => {
         setLoading(true);
         setError(null);
         try {
-            const response = await api.get('/suppliers', { params: filterObj });
-            setSuppliers(response.data?.data || []);
+            const response = await api.get('/item-groups', { params: filterObj });
+            setItemGroups(response.data?.data || []);
             setPagination({
                 current: filterObj.page,
                 pageSize: filterObj.limit,
@@ -41,34 +41,34 @@ export default function Suppliers() {
             limit: pagination.pageSize,
         };
         setFilter(newFilter);
-        getSuppliers(newFilter);
+        getItemGroups(newFilter);
     };
 
     // Handle search
     const handleSearch = (value) => {
         const newFilter = { ...filter, search: value, page: 1 };
         setFilter(newFilter);
-        getSuppliers(newFilter);
+        getItemGroups(newFilter);
     };
 
     // Handle row click for editing
     const handleRowClick = (record) => {
-        navigate(`/suppliers/${record.id}/edit`);
+        navigate(`/item-groups/${record.id}/edit`);
     };
 
-    // Handle delete supplier
-    const handleDelete = async (supplierId) => {
+    // Handle delete item group
+    const handleDelete = async (itemGroupId) => {
         try {
-            await api.delete(`/suppliers/${supplierId}`);
-            message.success("Supplier deleted successfully!");
-            getSuppliers();
+            await api.delete(`/item-groups/${itemGroupId}`);
+            message.success("Item Group deleted successfully!");
+            getItemGroups();
         } catch (error) {
-            message.error(error.response?.data?.message || "Failed to delete supplier");
+            message.error(error.response?.data?.message || "Failed to delete item group");
         }
     };
 
     useEffect(() => {
-        getSuppliers(filter);
+        getItemGroups(filter);
         // eslint-disable-next-line
     }, []);
 
@@ -80,35 +80,21 @@ export default function Suppliers() {
             width: 80,
         },
         {
-            title: 'Supplier Code',
-            dataIndex: 'supplierCode',
-            key: 'supplierCode',
+            title: 'Group Code',
+            dataIndex: 'groupCode',
+            key: 'groupCode',
             width: 120,
         },
         {
-            title: 'Supplier Name',
-            dataIndex: 'supplierName',
-            key: 'supplierName',
+            title: 'Group Name',
+            dataIndex: 'groupName',
+            key: 'groupName',
         },
         {
-            title: 'Contact Person',
-            dataIndex: 'contactPerson',
-            key: 'contactPerson',
-        },
-        {
-            title: 'Phone Number',
-            dataIndex: 'phoneNumber',
-            key: 'phoneNumber',
-        },
-        {
-            title: 'Location',
-            dataIndex: 'location',
-            key: 'location',
-        },
-        {
-            title: 'Tax ID',
-            dataIndex: 'taxId',
-            key: 'taxId',
+            title: 'Description',
+            dataIndex: 'description',
+            key: 'description',
+            ellipsis: true,
         },
         {
             title: 'Status',
@@ -131,7 +117,7 @@ export default function Suppliers() {
                         icon={<EyeOutlined />}
                         onClick={(e) => {
                             e.stopPropagation();
-                            navigate(`/suppliers/${record.id}`);
+                            navigate(`/item-groups/${record.id}`);
                         }}
                         title="View"
                     />
@@ -140,12 +126,12 @@ export default function Suppliers() {
                         icon={<EditOutlined />}
                         onClick={(e) => {
                             e.stopPropagation();
-                            navigate(`/suppliers/${record.id}/edit`);
+                            navigate(`/item-groups/${record.id}/edit`);
                         }}
                         title="Edit"
                     />
                     <Popconfirm
-                        title="Are you sure you want to delete this supplier?"
+                        title="Are you sure you want to delete this item group?"
                         onConfirm={(e) => {
                             e.stopPropagation();
                             handleDelete(record.id);
@@ -169,19 +155,19 @@ export default function Suppliers() {
     return (
         <Card>
             <div className="flex items-center justify-between mb-6">
-                <h1 className="title">Suppliers</h1>
+                <h1 className="title">Item Groups</h1>
                 <Button
                     type="primary"
                     icon={<PlusOutlined />}
-                    onClick={() => navigate("/new-supplier")}
+                    onClick={() => navigate("/new-item-group")}
                 >
-                    Create Supplier
+                    Create Item Group
                 </Button>
             </div>
 
             <div className="mb-4">
                 <Search
-                    placeholder="Search suppliers by name, code, or contact person"
+                    placeholder="Search item groups by name or code"
                     allowClear
                     enterButton={<SearchOutlined />}
                     size="large"
@@ -192,7 +178,7 @@ export default function Suppliers() {
 
             <Table
                 columns={columns}
-                dataSource={suppliers}
+                dataSource={itemGroups}
                 rowKey="id"
                 loading={loading}
                 pagination={{
@@ -202,14 +188,14 @@ export default function Suppliers() {
                     showSizeChanger: true,
                     showQuickJumper: true,
                     showTotal: (total, range) =>
-                        `${range[0]}-${range[1]} of ${total} suppliers`,
+                        `${range[0]}-${range[1]} of ${total} item groups`,
                 }}
                 onChange={handleTableChange}
                 onRow={(record) => ({
                     onClick: () => handleRowClick(record),
                     style: { cursor: 'pointer' },
                 })}
-                scroll={{ x: 1200 }}
+                scroll={{ x: 800 }}
             />
 
             {error && <p style={{ color: 'red', marginTop: 16 }}>Error: {error}</p>}

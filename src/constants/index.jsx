@@ -13,6 +13,8 @@ import {
     Building2,
     Truck,
     Tag,
+    Box,
+    FolderOpen,
 } from "lucide-react";
 {
     /* <Warehouse /> */
@@ -49,16 +51,16 @@ export const navbarLinks = [
                 icon: Users,
                 path: "/customers",
             },
-            {
-                label: "New customer",
-                icon: UserPlus,
-                path: "/new-customer",
-            },
-            {
-                label: "Verified customers",
-                icon: UserCheck,
-                path: "/verified-customers",
-            },
+            // {
+            //     label: "New customer",
+            //     icon: UserPlus,
+            //     path: "/new-customer",
+            // },
+            // {
+            //     label: "Verified customers",
+            //     icon: UserCheck,
+            //     path: "/verified-customers",
+            // },
         ],
     },
     {
@@ -70,20 +72,30 @@ export const navbarLinks = [
                 path: "/products",
             },
             {
-                label: "New product",
-                icon: PackagePlus,
-                path: "/new-product",
+                label: "Items",
+                icon: Box,
+                path: "/items",
             },
+            {
+                label: "Item Groups",
+                icon: FolderOpen,
+                path: "/item-groups",
+            },
+            // {
+            //     label: "New product",
+            //     icon: PackagePlus,
+            //     path: "/new-product",
+            // },
             {
                 label: "Stores",
                 icon: Warehouse,
                 path: "/stores",
             },
-            {
-                label: "Inventory",
-                icon: ShoppingBag,
-                path: "/inventory",
-            },
+            // {
+            //     label: "Inventory",
+            //     icon: ShoppingBag,
+            //     path: "/inventory",
+            // },
         ],
     },
     {

@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { Table, Card, Button, Space, Popconfirm, message, Tag, Input } from "antd";
+import { Table, Card, Button, Space, Popconfirm, message, Tag, Input, Image } from "antd";
 import { PlusOutlined, EditOutlined, DeleteOutlined, EyeOutlined, SearchOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import api from '@/utils/api';
 
 const { Search } = Input;
 
-export default function Suppliers() {
+export default function Items() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [suppliers, setSuppliers] = useState([]);
+    const [items, setItems] = useState([]);
     const [pagination, setPagination] = useState({ current: 1, pageSize: 10, total: 0 });
     const [filter, setFilter] = useState({ page: 1, limit: 10, search: '' });
 
-    // Fetch suppliers with filters
-    const getSuppliers = async (filterObj = filter) => {
+    // Fetch items with filters
+    const getItems = async (filterObj = filter) => {
         setLoading(true);
         setError(null);
         try {
-            const response = await api.get('/suppliers', { params: filterObj });
-            setSuppliers(response.data?.data || []);
+            const response = await api.get('/items', { params: filterObj });
+            setItems(response.data?.data || []);
             setPagination({
                 current: filterObj.page,
                 pageSize: filterObj.limit,
@@ -41,34 +41,34 @@ export default function Suppliers() {
             limit: pagination.pageSize,
         };
         setFilter(newFilter);
-        getSuppliers(newFilter);
+        getItems(newFilter);
     };
 
     // Handle search
     const handleSearch = (value) => {
         const newFilter = { ...filter, search: value, page: 1 };
         setFilter(newFilter);
-        getSuppliers(newFilter);
+        getItems(newFilter);
     };
 
     // Handle row click for editing
     const handleRowClick = (record) => {
-        navigate(`/suppliers/${record.id}/edit`);
+        navigate(`/items/${record.id}/edit`);
     };
 
-    // Handle delete supplier
-    const handleDelete = async (supplierId) => {
+    // Handle delete item
+    const handleDelete = async (itemId) => {
         try {
-            await api.delete(`/suppliers/${supplierId}`);
-            message.success("Supplier deleted successfully!");
-            getSuppliers();
+            await api.delete(`/items/${itemId}`);
+            message.success("Item deleted successfully!");
+            getItems();
         } catch (error) {
-            message.error(error.response?.data?.message || "Failed to delete supplier");
+            message.error(error.response?.data?.message || "Failed to delete item");
         }
     };
 
     useEffect(() => {
-        getSuppliers(filter);
+        getItems(filter);
         // eslint-disable-next-line
     }, []);
 
@@ -80,35 +80,79 @@ export default function Suppliers() {
             width: 80,
         },
         {
-            title: 'Supplier Code',
-            dataIndex: 'supplierCode',
-            key: 'supplierCode',
+            title: 'Image',
+            dataIndex: 'image',
+            key: 'image',
+            width: 80,
+            render: (image) => (
+                image ? (
+                    <Image
+                        src={image}
+                        alt="Item"
+                        width={50}
+                        height={50}
+                        style={{ objectFit: 'cover' }}
+                        fallback="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMIAAADDCAYAAADQvc6UAAABRWlDQ1BJQ0MgUHJvZmlsZQAAKJFjYGASSSwoyGFhYGDIzSspCnJ3UoiIjFJgf8LAwSDCIMogwMCcmFxc4BgQ4ANUwgCjUcG3awyMIPqyLsis7PPOq3QdDFcvjV3jOD1boQVTPQrgSkktTgbSf4A4LbmgqISBgTEFyFYuLykAsTuAbJEioKOA7DkgdjqEvQHEToKwj4DVhAQ5A9k3gGyB5IxEoBmML4BsnSQk8XQkNtReEOBxcfXxUQg1Mjc0dyHgXNJBSWpFCYh2zi+oLMpMzyhRcASGUqqCZ16yno6CkYGRAQMDKMwhqj/fAIcloxgHQqxAjIHBEugw5sUIsSQpBobtQPdLciLEVJYzMPBHMDBsayhILEqEO4DxG0txmrERhM29nYGBddr//5/DGRjYNRkY/l7////39v///y4Dmn+LgeHANwDrkl1AuO+pmgAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAwqADAAQAAAABAAAAwwAAAAD9b/HnAAAHlklEQVR4Ae3dP3Ik1RnG4W+FgYxN"
+                    />
+                ) : (
+                    <div className="w-12 h-12 bg-gray-200 rounded flex items-center justify-center text-gray-500 text-xs">
+                        No Image
+                    </div>
+                )
+            ),
+        },
+        {
+            title: 'Item Code',
+            dataIndex: 'itemCode',
+            key: 'itemCode',
             width: 120,
         },
         {
-            title: 'Supplier Name',
+            title: 'Item Name',
+            dataIndex: 'itemName',
+            key: 'itemName',
+        },
+        {
+            title: 'Brand',
+            dataIndex: 'brandName',
+            key: 'brandName',
+            render: (brandName, record) => brandName || 'N/A',
+        },
+        {
+            title: 'Supplier',
             dataIndex: 'supplierName',
             key: 'supplierName',
+            render: (supplierName, record) => supplierName || 'N/A',
         },
         {
-            title: 'Contact Person',
-            dataIndex: 'contactPerson',
-            key: 'contactPerson',
+            title: 'Group',
+            dataIndex: 'groupName',
+            key: 'groupName',
+            render: (groupName, record) => groupName || 'N/A',
         },
         {
-            title: 'Phone Number',
-            dataIndex: 'phoneNumber',
-            key: 'phoneNumber',
+            title: 'Cost Price',
+            dataIndex: 'costPrice',
+            key: 'costPrice',
+            render: (value) => `$${value?.toFixed(2) || '0.00'}`,
         },
         {
-            title: 'Location',
-            dataIndex: 'location',
-            key: 'location',
+            title: 'Selling Price',
+            dataIndex: 'sellingPrice',
+            key: 'sellingPrice',
+            render: (value) => `$${value?.toFixed(2) || '0.00'}`,
         },
         {
-            title: 'Tax ID',
-            dataIndex: 'taxId',
-            key: 'taxId',
+            title: 'Stock',
+            dataIndex: 'currentStock',
+            key: 'currentStock',
+            render: (currentStock, record) => (
+                <span style={{
+                    color: currentStock <= (record.minStockLevel || 0) ? 'red' : 'green'
+                }}>
+                    {currentStock || 0}
+                </span>
+            ),
         },
         {
             title: 'Status',
@@ -131,7 +175,7 @@ export default function Suppliers() {
                         icon={<EyeOutlined />}
                         onClick={(e) => {
                             e.stopPropagation();
-                            navigate(`/suppliers/${record.id}`);
+                            navigate(`/items/${record.id}`);
                         }}
                         title="View"
                     />
@@ -140,12 +184,12 @@ export default function Suppliers() {
                         icon={<EditOutlined />}
                         onClick={(e) => {
                             e.stopPropagation();
-                            navigate(`/suppliers/${record.id}/edit`);
+                            navigate(`/items/${record.id}/edit`);
                         }}
                         title="Edit"
                     />
                     <Popconfirm
-                        title="Are you sure you want to delete this supplier?"
+                        title="Are you sure you want to delete this item?"
                         onConfirm={(e) => {
                             e.stopPropagation();
                             handleDelete(record.id);
@@ -169,19 +213,19 @@ export default function Suppliers() {
     return (
         <Card>
             <div className="flex items-center justify-between mb-6">
-                <h1 className="title">Suppliers</h1>
+                <h1 className="title">Items</h1>
                 <Button
                     type="primary"
                     icon={<PlusOutlined />}
-                    onClick={() => navigate("/new-supplier")}
+                    onClick={() => navigate("/new-item")}
                 >
-                    Create Supplier
+                    Create Item
                 </Button>
             </div>
 
             <div className="mb-4">
                 <Search
-                    placeholder="Search suppliers by name, code, or contact person"
+                    placeholder="Search items by name, code, or description"
                     allowClear
                     enterButton={<SearchOutlined />}
                     size="large"
@@ -192,7 +236,7 @@ export default function Suppliers() {
 
             <Table
                 columns={columns}
-                dataSource={suppliers}
+                dataSource={items}
                 rowKey="id"
                 loading={loading}
                 pagination={{
@@ -202,14 +246,14 @@ export default function Suppliers() {
                     showSizeChanger: true,
                     showQuickJumper: true,
                     showTotal: (total, range) =>
-                        `${range[0]}-${range[1]} of ${total} suppliers`,
+                        `${range[0]}-${range[1]} of ${total} items`,
                 }}
                 onChange={handleTableChange}
                 onRow={(record) => ({
                     onClick: () => handleRowClick(record),
                     style: { cursor: 'pointer' },
                 })}
-                scroll={{ x: 1200 }}
+                scroll={{ x: 1400 }}
             />
 
             {error && <p style={{ color: 'red', marginTop: 16 }}>Error: {error}</p>}
