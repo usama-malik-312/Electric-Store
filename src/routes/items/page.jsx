@@ -19,7 +19,7 @@ export default function Items() {
         setLoading(true);
         setError(null);
         try {
-            const response = await api.get('/items', { params: filterObj });
+            const response = await api.get('/inventory', { params: filterObj });
             setItems(response.data?.data || []);
             setPagination({
                 current: filterObj.page,
