@@ -168,8 +168,8 @@ export default function Customers() {
     ];
 
     return (
-        <Card>
-            <div className="flex items-center justify-between mb-6">
+        <Card className="card">
+            <div className="flex items-center justify-between mb-6" >
                 <h1 className="title">Customers</h1>
                 <Button
                     type="primary"
@@ -192,6 +192,7 @@ export default function Customers() {
             </div>
 
             <Table
+
                 columns={columns}
                 dataSource={customers}
                 rowKey="id"
